@@ -17684,7 +17684,16 @@ function setupMobileOptimizations() {
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', function() {
             const willOpen = !sidebar.classList.contains('open');
-            sidebar.classList.toggle('open');
+            // على الموبايل نستخدم open فقط ونزيل حالات سطح المكتب
+            if (willOpen) {
+                sidebar.classList.add('open');
+                sidebar.classList.remove('expanded');
+                sidebar.classList.remove('collapsed');
+            } else {
+                sidebar.classList.remove('open');
+                sidebar.classList.remove('expanded');
+                sidebar.classList.add('collapsed');
+            }
             if (overlay) overlay.classList.toggle('active', willOpen);
         });
     }
@@ -17693,6 +17702,8 @@ function setupMobileOptimizations() {
     if (overlay && sidebar) {
         overlay.addEventListener('click', function() {
             sidebar.classList.remove('open');
+            sidebar.classList.remove('expanded');
+            sidebar.classList.add('collapsed');
             overlay.classList.remove('active');
         });
     }
@@ -17701,6 +17712,8 @@ function setupMobileOptimizations() {
     if (closeSidebarBtn && sidebar) {
         closeSidebarBtn.addEventListener('click', function() {
             sidebar.classList.remove('open');
+            sidebar.classList.remove('expanded');
+            sidebar.classList.add('collapsed');
             if (overlay) overlay.classList.remove('active');
         });
     }
@@ -17710,6 +17723,8 @@ function setupMobileOptimizations() {
         mainContent.addEventListener('click', function(e) {
             if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
                 sidebar.classList.remove('open');
+                sidebar.classList.remove('expanded');
+                sidebar.classList.add('collapsed');
                 if (overlay) overlay.classList.remove('active');
             }
         });
