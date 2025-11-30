@@ -17696,6 +17696,16 @@ function setupMobileOptimizations() {
             overlay.classList.remove('active');
         });
     }
+    // إغلاق القائمة عند النقر على أي جزء من المحتوى
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent && sidebar) {
+        mainContent.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+            }
+        });
+    }
     
     // إغلاق القائمة عند النقر على عنصر قائمة
     const navItems = document.querySelectorAll('.nav-item');
