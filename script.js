@@ -17696,6 +17696,14 @@ function setupMobileOptimizations() {
             overlay.classList.remove('active');
         });
     }
+    // زر إغلاق داخلي للموبايل
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    if (closeSidebarBtn && sidebar) {
+        closeSidebarBtn.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('active');
+        });
+    }
     // إغلاق القائمة عند النقر على أي جزء من المحتوى
     const mainContent = document.querySelector('.main-content');
     if (mainContent && sidebar) {
