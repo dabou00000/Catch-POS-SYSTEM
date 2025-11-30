@@ -17676,24 +17676,23 @@ function setupMobileOptimizations() {
         } catch(e) { console.error(e); }
     })();
     
-    // تحسين القائمة الجانبية للموبايل
+    // تحسين القائمة الجانبية للموبايل (توحيد السلوك على كلاس open + overlay.active)
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.getElementById('overlay');
     
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-            if (overlay) {
-                overlay.classList.toggle('active');
-            }
+            const willOpen = !sidebar.classList.contains('open');
+            sidebar.classList.toggle('open');
+            if (overlay) overlay.classList.toggle('active', willOpen);
         });
     }
     
     // إغلاق القائمة عند النقر على overlay
-    if (overlay) {
+    if (overlay && sidebar) {
         overlay.addEventListener('click', function() {
-            sidebar.classList.remove('active');
+            sidebar.classList.remove('open');
             overlay.classList.remove('active');
         });
     }
@@ -17703,10 +17702,8 @@ function setupMobileOptimizations() {
     navItems.forEach(item => {
         item.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
-                if (overlay) {
-                    overlay.classList.remove('active');
-                }
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
             }
         });
     });
@@ -17771,10 +17768,8 @@ function setupMobileOptimizations() {
     // تحديث عند تغيير حجم الشاشة
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            sidebar.classList.remove('active');
-            if (overlay) {
-                overlay.classList.remove('active');
-            }
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('active');
         }
     });
 }
